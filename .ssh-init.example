@@ -1,0 +1,2 @@
+REPO=https://github.com/sibprogrammer/dotfiles/archive/master.zip
+INSTALL_CMD=dotfiles-master/install.sh

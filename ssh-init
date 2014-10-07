@@ -1,0 +1,30 @@
+#!/bin/sh
+
+set -e
+
+HOST=$1
+
+if [ -z "$HOST" ]; then
+    echo "Usage: ssh-init [user@]<host>"
+    exit 1
+fi
+
+IFS=@
+set $HOST
+ORIG_USER=$USER
+USER=$1
+HOST=$2
+
+if [ -z "$HOST" ]; then
+    HOST=$USER
+    USER=$ORIG_USER
+fi
+
+if [ "1" = `ssh -oBatchMode=yes $USER@$HOST id && echo 0 || echo 1` ]; then
+    ssh-copy-id $USER@$HOST
+fi
+
+source ~/.ssh-init
+ARCHIVE=`basename $REPO`
+
+ssh $USER@$HOST "wget $REPO ; unzip $ARCHIVE ; rm $ARCHIVE ; sh $INSTALL_CMD"
