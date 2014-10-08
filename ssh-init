@@ -29,4 +29,4 @@ ARCHIVE=`basename $REPO`
 
 ssh $USER@$HOST "wget $REPO ; unzip $ARCHIVE ; rm $ARCHIVE ; sh $INSTALL_CMD"
 
-[ ! -z $AUTOLOGIN ] && ssh $USER@$HOST
+[ ! -z $AUTOLOGIN ] && ssh $USER@$HOST || true
