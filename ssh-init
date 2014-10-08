@@ -28,3 +28,5 @@ source ~/.ssh-init
 ARCHIVE=`basename $REPO`
 
 ssh $USER@$HOST "wget $REPO ; unzip $ARCHIVE ; rm $ARCHIVE ; sh $INSTALL_CMD"
+
+[ ! -z $AUTOLOGIN ] && ssh $USER@$HOST
