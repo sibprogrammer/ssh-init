@@ -20,13 +20,18 @@ if [ -z "$HOST" ]; then
     USER=$ORIG_USER
 fi
 
-if [ "1" = `ssh -oBatchMode=yes $USER@$HOST id && echo 0 || echo 1` ]; then
-    ssh-copy-id $USER@$HOST
+if [ "1" = `ssh -oBatchMode=yes $USER@$HOST > /dev/null 2>&1 id && echo 0 || echo 1` ]; then
+    echo "Copy SSH key..."
+    ssh-copy-id $USER@$HOST > /dev/null
 fi
 
 source ~/.ssh-init
 ARCHIVE=`basename $REPO`
 
-ssh $USER@$HOST "wget $REPO ; unzip -o $ARCHIVE ; rm $ARCHIVE ; sh $INSTALL_CMD"
+echo "Install preferences..."
+ssh $USER@$HOST "wget -q $REPO ; unzip -q -o $ARCHIVE ; rm $ARCHIVE ; sh $INSTALL_CMD"
 
-[ ! -z $AUTOLOGIN ] && ssh $USER@$HOST || true
+if [ ! -z $AUTOLOGIN ]; then
+    echo "Autologin..."
+    ssh $USER@$HOST
+fi
