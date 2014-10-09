@@ -7,7 +7,6 @@ Requirements
 ============
 
 * Linux or Mac OS X
-* `ssh-copy-id` utility presence
 
 Installation
 ============

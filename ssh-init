@@ -22,7 +22,7 @@ fi
 
 if [ "1" = `ssh -oBatchMode=yes $USER@$HOST > /dev/null 2>&1 id && echo 0 || echo 1` ]; then
     echo "Copy SSH key..."
-    ssh-copy-id $USER@$HOST > /dev/null
+    cat ~/.ssh/id_rsa.pub | ssh $USER@$HOST "umask 077 ; test -d .ssh || mkdir .ssh ; cat >> .ssh/authorized_keys"
 fi
 
 source ~/.ssh-init
