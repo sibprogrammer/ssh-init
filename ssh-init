@@ -29,7 +29,7 @@ source ~/.ssh-init
 ARCHIVE=`basename $REPO`
 
 echo "Install preferences..."
-ssh $USER@$HOST "wget -q $REPO ; unzip -q -o $ARCHIVE ; rm $ARCHIVE ; sh $INSTALL_CMD"
+ssh $USER@$HOST "wget -O $ARCHIVE -q $REPO ; unzip -q -o $ARCHIVE ; rm $ARCHIVE ; sh $INSTALL_CMD"
 
 if [ ! -z $AUTOLOGIN ]; then
     echo "Autologin..."
